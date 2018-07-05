@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+</head>
+<body>
+    <h1>欢迎登录</h1>
+    <div>
+        <img src="/avater" alt="">
+        <h2>{{userdata.User.NickName}}</h2>
+        <h2>{{userdata.User.UserName}}</h2>
+    </div>
+    <h3>最近联系人</h3>
+    <ul>
+        {% for user in userdata.ContactList%}
+        <li>{{user.NickName}} {{user}}</li>
+        {% endfor %}
+    </ul>
+    <a href="/list">查看所有联系人</a>
+
+ <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        $(function () {
+            receive();
+        })
+
+        function receive() {
+            $.ajax({
+                url:'/receive',
+                type:'GET',
+                dataType:'JSON',
+                success:function (arg) {
+                    if(arg.code === 200){
+                        print('有新消息')
+                        receive()
+                    }else{
+                        print('接受消息方法失败')
+                    }
+
+                }
+            })
+        }
+
+    </script>
+
+</body>
+</html>

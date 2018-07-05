@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+</head>
+<body>
+    <div style="width: 200px;margin: 0 auto">
+        <h1 style="text-align: center">微信登录</h1>
+        <img id="img" style="height: 200px;width: 200px;" src="https://login.weixin.qq.com/qrcode/{{qr_img}}" alt="">
+    </div>
+
+    <script src="/static/jquery-1.12.4.js"></script>
+    <script>
+        $(function () {
+            check();
+        })
+
+        function check() {
+            $.ajax({
+                url:'/check',
+                type:'GET',
+                dataType:'JSON',
+                success:function (arg) {
+                    if(arg.code === 201){
+                        // 扫码
+                        $('#img').attr('src',arg.src);
+                        check();
+                    }else if(arg.code === 200){
+                        // 重定向到用户信息
+                        location.href = '/userdata'
+                    }else{
+                        check();
+                    }
+
+                }
+            })
+        }
+
+    </script>
+
+</body>
+</html>
