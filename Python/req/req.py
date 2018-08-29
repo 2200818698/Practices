@@ -1,7 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
-response = requests.get('https://www.autohome.com.cn/news/')
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:45.0) Gecko/20100101 Firefox/45.0'}
+response = requests.get('https://www.autohome.com.cn/news/', headers=headers)
 response.encoding = response.apparent_encoding
 
 
